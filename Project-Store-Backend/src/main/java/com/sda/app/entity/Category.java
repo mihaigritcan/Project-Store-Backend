@@ -13,6 +13,8 @@ public enum Category {
     RESISTORS,
     CAPACITORS,
     INDUCTORS,
+    TRANSISTORS,
+    DIODS
 
 
 }
