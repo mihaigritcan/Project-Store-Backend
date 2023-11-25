@@ -14,7 +14,8 @@ public enum Category {
     CAPACITORS,
     INDUCTORS,
     TRANSISTORS,
-    DIODS
+    DIODS,
+    RECTIFIERS
 
 
 }
