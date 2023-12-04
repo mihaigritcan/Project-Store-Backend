@@ -28,12 +28,12 @@ public class ItemControllerTest {
         Item item1 = new Item();
         item1.setId(1);
         item1.setTitle("resistors");
-        item1.setPrice(100.00);
+        item1.setPrice(55.00);
         item1.setCategory(Category.RESISTORS);
         Item item2 = new Item();
         item2.setId(2);
         item2.setTitle("resistors");
-        item2.setPrice(200.00);
+        item2.setPrice(80.00);
         item2.setCategory(Category.RESISTORS);
         List<Item> products = Arrays.asList(item1, item2);
         Mockito.when(itemService.findAll()).thenReturn(products);
@@ -41,17 +41,17 @@ public class ItemControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data", IsCollectionWithSize.hasSize(2)))
                 .andExpect(jsonPath("$.data[0].id").value(1))
-                .andExpect(jsonPath("$.data[0].title").value("coffee"))
-                .andExpect(jsonPath("$.data[0].price").value(100.00))
+                .andExpect(jsonPath("$.data[0].title").value("resistors"))
+                .andExpect(jsonPath("$.data[0].price").value(55.00))
                 .andExpect(jsonPath("$.data[1].id").value(2))
                 .andExpect(jsonPath("$.data[1].title").value("resistors"))
-                .andExpect(jsonPath("$.data[1].price").value(200.00));
+                .andExpect(jsonPath("$.data[1].price").value(80.00));
     }
     @Test
     public void testCreateProduct() throws Exception {
         Item item = new Item();
         item.setTitle("New Product");
-        item.setPrice(150.00);
+        item.setPrice(35.00);
         item.setCategory(Category.RESISTORS);
         Mockito.when(itemService.createItem(Mockito.any(Item.class))).thenReturn(item);
         mockMvc.perform(post("/items/")
@@ -59,6 +59,6 @@ public class ItemControllerTest {
                 .content(new ObjectMapper().writeValueAsString(item)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.title").value("New Product"))
-                .andExpect(jsonPath("$.data.price").value(150.00));
+                .andExpect(jsonPath("$.data.price").value(35.00));
     }
 }

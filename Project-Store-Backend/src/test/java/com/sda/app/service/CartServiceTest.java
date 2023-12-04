@@ -28,9 +28,9 @@ public class CartServiceTest {
     public void testGetAllCarts() {
         // Mock data
         User user = new User();
-        user.setUsername("user");
+        user.setUsername("popescu");
         Item item = new Item();
-        item.setTitle("coffee");
+        item.setTitle("capacitor");
         List<Item> items = new ArrayList<>();
         items.add(item);
         Cart cart = new Cart();
@@ -46,16 +46,16 @@ public class CartServiceTest {
         List<Cart> result = cartService.findAll();
         // Verify the result
         assertEquals(1, result.size());
-        assertEquals("user", result.get(0).getUser().getUsername());
-        assertEquals("coffee", result.get(0).getItems().get(0).getTitle());
+        assertEquals("popescu", result.get(0).getUser().getUsername());
+        assertEquals("capacitor", result.get(0).getItems().get(0).getTitle());
     }
     @Test
     public void testGetOrderById() {
         // Mock data
         User user = new User();
-        user.setUsername("user");
+        user.setUsername("popescu");
         Item item = new Item();
-        item.setTitle("coffee");
+        item.setTitle("capacitor");
         List<Item> items = new ArrayList<>();
         items.add(item);
         Cart cart = new Cart();
@@ -68,15 +68,15 @@ public class CartServiceTest {
         Optional<Cart> result = cartService.findById(1);
         // Verify the result
         assertTrue(result.isPresent());
-        assertEquals("coffee", result.get().getItems().get(0).getTitle());
+        assertEquals("capacitor", result.get().getItems().get(0).getTitle());
     }
     @Test
     public void testSaveOrder() {
         // Mock data
         User user = new User();
-        user.setUsername("user");
+        user.setUsername("popescu");
         Item item = new Item();
-        item.setTitle("coffee");
+        item.setTitle("capacitor");
         List<Item> items = new ArrayList<>();
         items.add(item);
         Cart cart = new Cart();

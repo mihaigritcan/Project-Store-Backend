@@ -18,22 +18,15 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/users") //adresa unde gasim metodele pentru user
+@RequestMapping("/users")
 public class UserController {
     @Autowired
     private UserService userService;
 
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
-
     @GetMapping("/")
     public ResponseEntity<ApiResponse> getAllUser() {
         List<User> userList = this.userService.findAll();
-        ApiResponse response = new ApiResponse.Builder()
-                .status(200)
-                .message("Lista utilizatori generata")
-                .data(userList)
-                .build();
+        ApiResponse response = new ApiResponse.Builder().status(200).message("Lista utilizatori generata").data(userList).build();
         return ResponseEntity.ok(response);
     }
 
@@ -45,11 +38,7 @@ public class UserController {
         usr.setUserRole(user.getUserRole());
         usr.setPassword(this.encryptPassword(user.getPassword()));
 
-        ApiResponse response = new ApiResponse.Builder()
-                .status(200)
-                .message("Utilizator creat cu success")
-                .data(userService.createUser(usr))
-                .build();
+        ApiResponse response = new ApiResponse.Builder().status(200).message("Utilizator creat cu success").data(userService.createUser(usr)).build();
         return ResponseEntity.ok(response);
     }
 
@@ -62,22 +51,14 @@ public class UserController {
         usr.setUserRole(user.getUserRole());
         usr.setPassword(this.encryptPassword(user.getPassword()));
 
-        ApiResponse response = new ApiResponse.Builder()
-                .status(200)
-                .message("Utilizator actualizat cu success")
-                .data(userService.updateUser(user))
-                .build();
+        ApiResponse response = new ApiResponse.Builder().status(200).message("Utilizator actualizat cu success").data(userService.updateUser(user)).build();
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse> deleteUser(@PathVariable("id") Integer id) {
         userService.deleteById(id);
-        ApiResponse response = new ApiResponse.Builder()
-                .status(200)
-                .message("Utilizator sters cu success")
-                .data(null)
-                .build();
+        ApiResponse response = new ApiResponse.Builder().status(200).message("Utilizator sters cu success").data(null).build();
         return ResponseEntity.ok(response);
     }
 
@@ -89,27 +70,15 @@ public class UserController {
             User usr = optionalUser.get();
 
             if (checkPassword(login.getPassword(), usr.getPassword())) {
-                ApiResponse response = new ApiResponse.Builder()
-                        .status(200)
-                        .message("Utilizator logat cu success")
-                        .data(usr)
-                        .build();
+                ApiResponse response = new ApiResponse.Builder().status(200).message("Utilizator logat cu success").data(usr).build();
                 return ResponseEntity.ok(response);
             } else {
-                ApiResponse response = new ApiResponse.Builder()
-                        .status(200)
-                        .message("Parola Invalida")
-                        .data(null)
-                        .build();
+                ApiResponse response = new ApiResponse.Builder().status(200).message("Parola Invalida").data(null).build();
                 return ResponseEntity.ok(response);
             }
 
         } else {
-            ApiResponse response = new ApiResponse.Builder()
-                    .status(200)
-                    .message("Utilizatorul nu exista")
-                    .data(null)
-                    .build();
+            ApiResponse response = new ApiResponse.Builder().status(200).message("Utilizatorul nu exista").data(null).build();
             return ResponseEntity.ok(response);
         }
     }
@@ -122,24 +91,23 @@ public class UserController {
         usr.setUserRole(UserRole.USER);
         usr.setPassword(this.encryptPassword(register.getPassword()));
 
-        ApiResponse response = new ApiResponse.Builder()
-                .status(200)
-                .message("Registered")
-                .data(this.userService.createUser(usr))
-                .build();
+        ApiResponse response = new ApiResponse.Builder().status(200).message("Registered").data(this.userService.createUser(usr)).build();
         return ResponseEntity.ok(response);
     }
 
     /**
      * This method it is used to encrypt the password before save it in database
+     *
      * @param password - clear password
      * @return - encrypted password
      */
     private String encryptPassword(String password) {
+
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
     private boolean checkPassword(String password, String bdPassword) {
+
         return BCrypt.checkpw(password, bdPassword);
     }
 }

@@ -25,14 +25,14 @@ public class ItemServiceTest {
     public void testGetAllProducts() {
         Item item1 = new Item();
         item1.setId(1);
-        item1.setTitle("coffee");
-        item1.setPrice(100.00);
-        item1.setCategory(Category.RESISTORS);
+        item1.setTitle("capacitor");
+        item1.setPrice(20.00);
+        item1.setCategory(Category.CAPACITORS);
         Item item2 = new Item();
         item2.setId(2);
-        item2.setTitle("cola");
-        item2.setPrice(200.00);
-        item2.setCategory(Category.RESISTORS);
+        item2.setTitle("inductor");
+        item2.setPrice(30.00);
+        item2.setCategory(Category.INDUCTORS);
         // Mock data
         List<Item> productList = Arrays.asList(
                 item1, item2
@@ -43,32 +43,32 @@ public class ItemServiceTest {
         List<Item> result = itemService.findAll();
         // Verify the result
         assertEquals(2, result.size());
-        assertEquals("coffee", result.get(0).getTitle());
-        assertEquals("cola", result.get(1).getTitle());
+        assertEquals("capacitor", result.get(0).getTitle());
+        assertEquals("inductor", result.get(1).getTitle());
     }
     @Test
     public void testGetProductById() {
         // Mock data
         Item item1 = new Item();
         item1.setId(1);
-        item1.setTitle("coffee");
-        item1.setPrice(100.00);
-        item1.setCategory(Category.RESISTORS);
+        item1.setTitle("capacitor");
+        item1.setPrice(20.00);
+        item1.setCategory(Category.CAPACITORS);
         // Define the behavior of the repository mock
         when(itemRepository.findById(1)).thenReturn(Optional.of(item1));
         // Call the service method
         Optional<Item> result = itemService.getById(1);
         // Verify the result
         assertEquals(true, result.isPresent());
-        assertEquals("coffee", result.get().getTitle());
+        assertEquals("capacitor", result.get().getTitle());
     }
     @Test
     public void testSaveProduct() {
         // Mock data
         Item item1 = new Item();
-        item1.setTitle("coffee");
-        item1.setPrice(100.00);
-        item1.setCategory(Category.RESISTORS);
+        item1.setTitle("capacitor");
+        item1.setPrice(20.00);
+        item1.setCategory(Category.CAPACITORS);
         // Call the service method
         itemService.createItem(item1);
         // Verify that the repository’s save method was called
@@ -76,9 +76,7 @@ public class ItemServiceTest {
     }
     @Test
     public void testDeleteProduct() {
-        // Call the service method
         itemService.deleteItem(1);
-        // Verify that the repository’s deleteById method was called
         verify(itemRepository, times(1)).deleteById(1);
     }
 }
